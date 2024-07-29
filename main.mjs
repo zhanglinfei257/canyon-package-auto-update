@@ -43,7 +43,7 @@ while (true) {
 
 
         async function updateDependencies(packageJsonFiles) {
-            for (const packageJson of [packageJsonFiles[0]]) {
+            for (const packageJson of packageJsonFiles) {
                 console.log(packageJson,'packageJson')
                 const data = fs.readFileSync(packageJson, 'utf8');
                 const json = JSON.parse(data);
