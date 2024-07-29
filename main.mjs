@@ -54,13 +54,14 @@ while (true) {
 
                 for (const [packageName, version] of Object.entries(allDependencies)) {
                     const latestVersion = await getLatestVersion(packageName);
-                    if (latestVersion && version.replaceAll('^','') !== latestVersion.replaceAll('^','')) {
+                    const whitelist = ['prisma','@prisma/client']
+                    if (latestVersion && version.replaceAll('^','') !== latestVersion.replaceAll('^','') && !whitelist.includes(packageName)) {
                         console.log(`Updating ${packageName} from ${version} to ${latestVersion}`);
                         if (dependencies[packageName]) {
-                            json.dependencies[packageName] = latestVersion;
+                            json.dependencies[packageName] = `^${latestVersion}`;
                         }
                         if (devDependencies[packageName]) {
-                            json.devDependencies[packageName] = latestVersion;
+                            json.devDependencies[packageName] = `^${latestVersion}`;
                         }
                     }
                 }
@@ -101,8 +102,8 @@ while (true) {
             throw error;  // Rethrow the error if you need to handle it upstream
         }
     }
-    // await sleep(60*60*1000)
-    await sleep(1*1000)
+    await sleep(60*60*1000)
+    // await sleep(1*1000)
 }
 
 
