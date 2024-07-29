@@ -4,8 +4,7 @@ import {exec} from 'child_process';
 import { promisify } from 'util';
 const execPromise = promisify(exec);
 // 0.读取配置
-const env = fs.readFileSync('./env.txt')
-console.log(env.toString())
+const env = fs.readFileSync('./env.txt').toString().trim();
 
 function sleep(time) {
     return new Promise((resolve, reject) => {
@@ -22,7 +21,7 @@ while (true) {
 
         async function gitClone(repoUrl, targetDir) {
             return new Promise((resolve, reject) => {
-                const command = `git clone ${repoUrl} ${targetDir} && cd canyon && git checkout test && git remote set-url origin https://zhangtao25:${env.toString()}@github.com/canyon-project/canyon.git && cd ..`;
+                const command = `git clone ${repoUrl} ${targetDir} && cd canyon && git checkout test && git remote set-url origin https://zhangtao25:${env}@github.com/canyon-project/canyon.git && cd ..`;
                 exec(command, (error, stdout, stderr) => {
                     resolve();
                 });
@@ -44,7 +43,7 @@ while (true) {
 
 
         async function updateDependencies(packageJsonFiles) {
-            for (const packageJson of packageJsonFiles) {
+            for (const packageJson of [packageJsonFiles[0]]) {
                 console.log(packageJson,'packageJson')
                 const data = fs.readFileSync(packageJson, 'utf8');
                 const json = JSON.parse(data);
