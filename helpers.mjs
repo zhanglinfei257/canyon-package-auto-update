@@ -20,7 +20,7 @@ export async function findPackageJsonFiles(dir, fileList = []) {
 
 
 export async function getLatestVersion(packageName) {
-    const url = `https://registry.npmmirror.com/${packageName}`;
+    const url = `https://registry.npmjs.org/${packageName}`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
