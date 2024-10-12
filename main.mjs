@@ -21,7 +21,7 @@ while (true) {
 
         async function gitClone(repoUrl, targetDir) {
             return new Promise((resolve, reject) => {
-                const command = `git clone ${repoUrl} ${targetDir} && cd canyon && git checkout test && git remote set-url origin https://zhangtao25:${env}@github.com/canyon-project/canyon.git && cd ..`;
+                const command = `git clone ${repoUrl} ${targetDir} && cd canyon && git checkout test && git remote set-url origin https://zhanglinfei257:${env}@github.com/canyon-project/canyon.git && cd ..`;
                 exec(command, (error, stdout, stderr) => {
                     resolve();
                 });
@@ -34,7 +34,7 @@ while (true) {
         await gitClone(repoUrl, targetDir);
 
 // 2.查找所有package.json文件
-        const paaa = await findPackageJsonFiles('./canyon')
+        const paaa = await findPackageJsonFiles('./canyon/packages')
             .then(packageJsonFiles => {
                 return packageJsonFiles;
             })
